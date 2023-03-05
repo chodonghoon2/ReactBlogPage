@@ -11,9 +11,25 @@ const BlogList = ({isAdmin}) => {
     const history = useHistory();
     const [posts , setPosts] = useState([]);
     const [Loading , setLoading] = useState(true);
+    const [currentPage , setCurrentPage] = useState(1);
 
-    const getPosts = () => {
-        axios.get('http://localhost:3001/posts').then((res) => {
+    const getPosts = (page = 1) => {
+        setCurrentPage(page);
+
+        let params = {
+            _page: page,
+            _limit: 5,
+            _sort: 'id',
+            _order: 'desc'
+        }
+
+        if(!isAdmin) {
+            params = {...params, publish: true};
+        }
+
+        axios.get(`http://localhost:3001/posts` , {
+            params
+        }).then((res) => {
             setPosts(res.data);
             setLoading(false);
         })
@@ -32,9 +48,7 @@ const BlogList = ({isAdmin}) => {
 
     const renderBlogList = () => {
         return (
-            posts.filter(post => {
-                return isAdmin || post.publish
-            }).map(post => {
+            posts.map(post => {
                 return (
                     <Card key={post.id} title={post.title} onClick={ () => history.push(`/blogs/${post.id}`)} >
                         {isAdmin ? (<div>
@@ -70,7 +84,7 @@ const BlogList = ({isAdmin}) => {
         return (
             <div>
                 {renderBlogList()}
-                <Pagination />
+                <Pagination currentPage={currentPage} numberOfPages={3} onClick={getPosts} />
             </div>
         )
 };
