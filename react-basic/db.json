@@ -1,3 +1,39 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "title": "안녕하세요",
+      "body": "안녕하세요",
+      "publish": true,
+      "createdAt": 1678018072112,
+      "id": 3
+    },
+    {
+      "title": "ㅇㅇ",
+      "body": "ㅇㅇ",
+      "publish": true,
+      "createdAt": 1678018077078,
+      "id": 4
+    },
+    {
+      "title": "sdfg",
+      "body": "sdfgsdfgsdfg",
+      "publish": true,
+      "createdAt": 1678018949108,
+      "id": 5
+    },
+    {
+      "title": "페이지 넘어가는지 확인",
+      "body": "페이지 넘어가는지 확인",
+      "publish": true,
+      "createdAt": 1678026620546,
+      "id": 6
+    },
+    {
+      "title": "페이지 넘어가는지 확인 2",
+      "body": "페이지 넘어가는지 확인 2",
+      "publish": true,
+      "createdAt": 1678026628835,
+      "id": 7
+    }
+  ]
 }
