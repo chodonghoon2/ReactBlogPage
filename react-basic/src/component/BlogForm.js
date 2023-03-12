@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import porpTypes from 'prop-types';
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const BlogForm = ({editing}) => {
     const [title , setTitle] = useState('');
