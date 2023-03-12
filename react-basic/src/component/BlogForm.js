@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
-import { bool } from "prop-types";
+import porpTypes from 'prop-types';
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const BlogForm = ({editing}) => {
     const [title , setTitle] = useState('');
@@ -104,7 +105,7 @@ const BlogForm = ({editing}) => {
 };
 
 BlogForm.propsTypes = {
-  editing: bool
+  editing: porpTypes.bool
 };
 
 BlogForm.defaultProps = {

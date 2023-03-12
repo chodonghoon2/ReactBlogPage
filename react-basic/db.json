@@ -45,7 +45,7 @@
     {
       "title": "비공개 게시글",
       "body": "비공개",
-      "publish": false,
+      "publish": true,
       "createdAt": 1678367528085,
       "id": 9
     }
