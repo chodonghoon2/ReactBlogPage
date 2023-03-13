@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useState , useEffect , useCallback } from "react";
+import { useState , useEffect , useCallback , useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import Card from "../component/Card";
 import LoadingSpinner from "../component/LoadingSpinner";
 import Pagination from "./Pagination";
 import porpTypes from 'prop-types';
+import Toast from "./Toast";
+// 고유 id 만들어줌
+import { v4 as uuidv4 } from 'uuid';
 
 const BlogList = ({isAdmin}) => {
     const history = useHistory();
@@ -19,6 +22,8 @@ const BlogList = ({isAdmin}) => {
     const [numberOfPages , setnumberOfPages] = useState(0);
     const [searchText , setSearchText] = useState('');
     const limit = 5;
+    const [, setToastRerender] = useState(false);
+    const toasts = useRef([]);
 
     useEffect(() => {
         setnumberOfPages(Math.ceil(numberOfPosts/limit));
@@ -61,6 +66,31 @@ const BlogList = ({isAdmin}) => {
         getPosts(parseInt(pageParam) || 1);
     }, []);
 
+    const deletToast = (id) => {
+        const filteredToasts = toasts.current.filter(toast => {
+            return toast.id !== id;
+        });
+        toasts.current = filteredToasts;
+        setToastRerender(prev => !prev);
+    };
+
+    const addToast = (toast) => {
+        const id = uuidv4();
+        const toastWithId = {
+            ...toast,
+            id: id
+        }
+        toasts.current = [
+            ...toasts.current,
+            toastWithId
+        ]
+        setToastRerender(prev => !prev);
+        // 5초후 toast 메세지가 사라지게 만드는 로직
+        setTimeout(() => {
+            deletToast(id);
+        }, 5000);
+    };
+
     const deleteBlog = (e , id) => {
         e.stopPropagation();
 
@@ -69,6 +99,10 @@ const BlogList = ({isAdmin}) => {
                 return prevPosts.filter(post => {
                     return post.id !== id;
                 })
+            });
+            addToast({
+                text: 'Succesfully deleted',
+                type: 'success'
             });
         });
     };
@@ -113,6 +147,10 @@ const BlogList = ({isAdmin}) => {
         
         return (
             <div>
+                <Toast
+                    toasts={toasts.current}
+                    deletToast={deletToast}
+                />
                 <input 
                     type="text"
                     placeholder="Search.."
