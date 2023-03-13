@@ -97,13 +97,13 @@ const BlogList = ({isAdmin}) => {
     };
 
     const onSearch = (e) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             history.push(`${location.pathname}?page=1`)
             setCurrentPage(1);
             getPosts(1);
-            console.log('Enter Click');
         }
-    };
+    }
+
 
     if (Loading) {
             return (
@@ -118,8 +118,8 @@ const BlogList = ({isAdmin}) => {
                     placeholder="Search.."
                     className="form-control"
                     value={searchText}
+                    onKeyUp={onSearch}
                     onChange= {(e) => { setSearchText(e.target.value)
-                    onkeyup={onSearch}
                     }}                
                 />
                 <hr/>
