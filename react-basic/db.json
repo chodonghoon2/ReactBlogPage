@@ -41,13 +41,6 @@
       "publish": true,
       "createdAt": 1678367514784,
       "id": 8
-    },
-    {
-      "title": "비공개 게시글",
-      "body": "비공개",
-      "publish": true,
-      "createdAt": 1678367528085,
-      "id": 9
     }
   ]
 }

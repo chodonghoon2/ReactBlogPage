@@ -1,12 +1,10 @@
-import { useEffect, useState , useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import porpTypes from 'prop-types';
-// 고유 id 만들어줌
-import { v4 as uuidv4 } from 'uuid';
-import Toast from "./Toast";
 
-const BlogForm = ({editing}) => {
+const BlogForm = ({editing , addToast }) => {
+
   const history = useHistory();
   const  {id} = useParams();
 
@@ -18,9 +16,7 @@ const BlogForm = ({editing}) => {
   const [originalpublish , setOriginalPublish] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
-  const [, setToastRerender] = useState(false);
-  // const [toasts , setToasts] = useState([]);
-  const toasts = useRef([]);
+
 
 
 
@@ -65,34 +61,6 @@ const BlogForm = ({editing}) => {
     return validated;
   };
 
-  const deletToast = (id) => {
-        // console.log(toasts); -> 똑같이 2번을 누를 시 오루가 발생함
-        // 2번 누를 시 처음에는 빈 배열이 넘어오고 두 번째에 토스트 배열이 들어온다
-        // setToast 함수가 실행될 때 빈 배열의 값을 기억하고 있다가 먼저 빈배열이 출력이 되는 현상이 일어난다. 따라서 업데이트 된 토스트를 가지고 와야함 -> useRef를 사용하여 해결 가능하다.
-        const filteredToasts = toasts.current.filter(toast => {
-            return toast.id !== id;
-        });
-        // setToasts(filteredToasts);
-        toasts.current = filteredToasts;
-        setToastRerender(prev => !prev);
-    };
-
-    const addToast = (toast) => {
-        const id = uuidv4();
-        const toastWithId = {
-            ...toast,
-            id: id
-        }
-        // setToasts(prev => [...prev, toastWithId]);
-        toasts.current = [...toasts.current, toastWithId];
-        setToastRerender(prev => !prev);
-
-        // 5초후 toast 메세지가 사라지게 만드는 로직
-        setTimeout(() => {
-            deletToast(id);
-        }, 5000);
-    };
-
   const onSubmit = () => {
     //다시 값을 입력후 초기화 시켜준 후 비어 있는지 다시 확인하기 위함
     setTitleError(false);
@@ -117,7 +85,7 @@ const BlogForm = ({editing}) => {
             type: 'success',
             text: 'Successfully created!'
           });
-          history.push('/admin')
+          history.push('/admin');
         })
       }
     }
@@ -129,10 +97,6 @@ const BlogForm = ({editing}) => {
 
   return (
       <div>
-        <Toast 
-          toasts={toasts.current}
-          deletToast={deletToast}
-        />
         <h1>{editing ? 'Edit' : 'Create'} a Blog Post</h1>
           <div className="mb-3">
             <label className="form-label">Title</label>
