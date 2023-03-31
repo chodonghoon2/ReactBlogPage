@@ -22,14 +22,14 @@ function App() {
       <div className="container mt-3">
         <Switch>
           {routes.map((route) => {
-            const Component = route.component
+            const Component = route.component;
             return <Route 
               key={route.path} 
               exact 
               path={route.path} 
               // component={route.component}
             >
-              <Component  addToast = {addToast} />
+              <Component  addToast={addToast} />
             </Route>
           })}
         </Switch>

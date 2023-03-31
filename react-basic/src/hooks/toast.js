@@ -18,13 +18,12 @@ const useToast = () => {
         const id = uuidv4();
         const toastWithId = {
             ...toast,
-            id: id
+            id
             }
-        toasts.current = [
-            ...toasts.current,
-            toastWithId
-        ]
+
+        toasts.current = [...toasts.current,toastWithId]
         setToastRerender(prev => !prev);
+        
         // 5초후 toast 메세지가 사라지게 만드는 로직
         setTimeout(() => {
             deleteToast(id);

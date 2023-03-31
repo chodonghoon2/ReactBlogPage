@@ -3,8 +3,7 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import porpTypes from 'prop-types';
 
-const BlogForm = ({editing , addToast }) => {
-
+const BlogForm = ({editing , addToast}) => {
   const history = useHistory();
   const  {id} = useParams();
 

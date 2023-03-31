@@ -7,7 +7,7 @@ import LoadingSpinner from "../component/LoadingSpinner";
 import Pagination from "./Pagination";
 import porpTypes from 'prop-types';
 
-const BlogList = ({isAdmin , addToast}) => {
+const BlogList = ({isAdmin, addToast}) => {
 
     const history = useHistory();
     const location = useLocation();
@@ -19,6 +19,7 @@ const BlogList = ({isAdmin , addToast}) => {
     const [numberOfPosts , setNumberOfPosts] = useState(0);
     const [numberOfPages , setnumberOfPages] = useState(0);
     const [searchText , setSearchText] = useState('');
+
     const limit = 5;
 
     useEffect(() => {
@@ -65,7 +66,7 @@ const BlogList = ({isAdmin , addToast}) => {
     const deleteBlog = (e , id) => {
         e.stopPropagation();
 
-        axios.delete(`http://localhost:3001/posts/${id}`).then((res) => {
+        axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
             setPosts(prevPosts => {
                 return prevPosts.filter(post => {
                     return post.id !== id;
@@ -76,7 +77,6 @@ const BlogList = ({isAdmin , addToast}) => {
                 type: 'success'
             });
         });
-        console.log('dddd');
     };
 
     // useEffect에 안 넣어두면 계속 랜더링이 일어난다 따라서 useEffect안에 넣어서 한번만 랜더링 되게 해야한다
@@ -84,11 +84,21 @@ const BlogList = ({isAdmin , addToast}) => {
     //     getPosts();
     // }, []);
 
+    if (Loading) {
+        return (
+            <LoadingSpinner />
+        );
+    }
+
     const renderBlogList = () => {
         return (
             posts.map(post => {
                 return (
-                    <Card key={post.id} title={post.title} onClick={ () => history.push(`/blogs/${post.id}`)} >
+                    <Card 
+                        key={post.id} 
+                        title={post.title} 
+                        onClick={ () => history.push(`/blogs/${post.id}`)} 
+                    >
                         {isAdmin ? (<div>
                             <button 
                                 className="btn btn-danger btn-sm"
@@ -109,13 +119,6 @@ const BlogList = ({isAdmin , addToast}) => {
             getPosts(1);
         }
     }
-
-
-    if (Loading) {
-            return (
-                <LoadingSpinner />
-            );
-        }
         
         return (
             <div>
