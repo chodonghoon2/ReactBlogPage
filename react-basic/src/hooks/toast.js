@@ -1,10 +1,13 @@
 import { useState , useRef } from "react";
 import {v4 as uuidv4} from 'uuid';
+import { addToast as add } from "../store/toastSlice";
+import { useDispatch } from "react-redux";
 
 const useToast = () => {
     const [, setToastRerender] = useState(false);
     // const [toasts , setToasts] = useState([]);
     const toasts = useRef([]);
+    const dispatch = useDispatch();
 
     const deleteToast = (id) => {
         const filteredToasts = toasts.current.filter(toast => {
@@ -19,11 +22,12 @@ const useToast = () => {
         const toastWithId = {
             ...toast,
             id
-            }
+        }
 
-        toasts.current = [...toasts.current,toastWithId]
-        setToastRerender(prev => !prev);
-        
+        dispatch(add(toastWithId));
+        // toasts.current = [...toasts.current,toastWithId]
+        // setToastRerender(prev => !prev);
+
         // 5초후 toast 메세지가 사라지게 만드는 로직
         setTimeout(() => {
             deleteToast(id);
