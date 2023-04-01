@@ -9,8 +9,10 @@ import routes from "./routes";
 import Toast from "./component/Toast";
 import useToast from "./hooks/toast";
 
+
+
 function App() {
-  const [toasts , addToast , deleteToast] = useToast();
+  const [ toasts , addToast , deleteToast] = useToast();
 
   return (
     <Router>
