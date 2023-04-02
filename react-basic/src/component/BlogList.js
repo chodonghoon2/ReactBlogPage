@@ -75,7 +75,7 @@ const BlogList = ({isAdmin}) => {
                 })
             });
             addToast({
-                text: 'Succesfully deleted',
+                text: 'Succesfully deleted!!',
                 type: 'success'
             });
         });
