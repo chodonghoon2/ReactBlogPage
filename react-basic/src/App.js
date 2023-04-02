@@ -9,6 +9,7 @@ import routes from "./routes";
 import Toast from "./component/Toast";
 import useToast from "./hooks/toast";
 import { useSelector } from "react-redux";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 
@@ -26,6 +27,14 @@ function App() {
       <div className="container mt-3">
         <Switch>
           {routes.map((route) => {
+            if(route.auth) {
+              return <ProtectedRoute
+                path={route.path} 
+                component={route.component}
+                key={route.path} 
+                exact 
+              />
+            }
             return <Route 
               key={route.path} 
               exact 
