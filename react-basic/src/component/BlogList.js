@@ -6,8 +6,9 @@ import Card from "../component/Card";
 import LoadingSpinner from "../component/LoadingSpinner";
 import Pagination from "./Pagination";
 import porpTypes from 'prop-types';
+import useToast from "../hooks/toast";
 
-const BlogList = ({isAdmin, addToast}) => {
+const BlogList = ({isAdmin}) => {
 
     const history = useHistory();
     const location = useLocation();
@@ -20,6 +21,7 @@ const BlogList = ({isAdmin, addToast}) => {
     const [numberOfPages , setnumberOfPages] = useState(0);
     const [searchText , setSearchText] = useState('');
 
+    const {addToast} = useToast();
     const limit = 5;
 
     useEffect(() => {

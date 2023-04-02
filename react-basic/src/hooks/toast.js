@@ -24,10 +24,10 @@ const useToast = () => {
         }, 5000);
     };
 
-    return [
+    return {
         addToast,
         deleteToast
-    ];
+    };
 };
 
 export default useToast;
