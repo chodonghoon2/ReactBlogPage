@@ -20,6 +20,7 @@ const BlogList = ({isAdmin}) => {
     const [numberOfPosts , setNumberOfPosts] = useState(0);
     const [numberOfPages , setnumberOfPages] = useState(0);
     const [searchText , setSearchText] = useState('');
+    const [error , setError] = useState('');
 
     const {addToast} = useToast();
     const limit = 5;
@@ -56,6 +57,13 @@ const BlogList = ({isAdmin}) => {
             setNumberOfPosts(res.headers['x-total-count']);
             setPosts(res.data);
             setLoading(false);
+        }).catch (e => {
+            setLoading(false);
+            setError('Something went wrong in datebase');
+            addToast({
+                text: 'Something went wrong',
+                type: 'danger'
+            })
         })
     }, [isAdmin ,searchText] )
 
@@ -69,15 +77,21 @@ const BlogList = ({isAdmin}) => {
         e.stopPropagation();
 
         axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
-            setPosts(prevPosts => {
-                return prevPosts.filter(post => {
-                    return post.id !== id;
-                })
-            });
+            // setPosts(prevPosts => {
+            //     return prevPosts.filter(post => {
+            //         return post.id !== id;
+            //     })
+            // });
+            getPosts(1);
             addToast({
                 text: 'Succesfully deleted!!',
                 type: 'success'
             });
+        }).catch(e => {
+            addToast({
+                text: 'The blog could not be deleted.',
+                type: 'danger'
+            })
         });
     };
 
@@ -121,6 +135,11 @@ const BlogList = ({isAdmin}) => {
             getPosts(1);
         }
     }
+
+    if(error) {
+        return <div>{error}</div>
+    }
+
         
         return (
             <div>

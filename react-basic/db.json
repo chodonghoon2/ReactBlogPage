@@ -1,60 +1,25 @@
 {
   "posts": [
     {
-      "title": "ㅁㄴㅇㄹ",
-      "body": "ㅁㄴㅇㄹ",
+      "title": "안녕하세요 블로그 만들기 프로젝트를 만들겠습니다.",
+      "body": "안녕하세요 블로그 만들기 프로젝트를 만들겠습니다.",
       "publish": true,
-      "createdAt": 1680359867434,
+      "createdAt": 1680424869656,
       "id": 1
     },
     {
-      "title": "asdf",
-      "body": "asdf",
+      "title": "조동훈 입니다.",
+      "body": "조동훈 입니다.",
       "publish": true,
-      "createdAt": 1680360035634,
+      "createdAt": 1680424877493,
       "id": 2
     },
     {
-      "title": "asdf",
-      "body": "asdf",
+      "title": "React를 활용하여 블로그 만들기",
+      "body": "React를 활용하여 블로그 만들기",
       "publish": true,
-      "createdAt": 1680419353782,
+      "createdAt": 1680424888697,
       "id": 3
-    },
-    {
-      "title": "asdf",
-      "body": "asdf",
-      "publish": true,
-      "createdAt": 1680419354593,
-      "id": 4
-    },
-    {
-      "title": "asdf",
-      "body": "asdf",
-      "publish": true,
-      "createdAt": 1680419354833,
-      "id": 5
-    },
-    {
-      "title": "asdf",
-      "body": "asdf",
-      "publish": true,
-      "createdAt": 1680419354984,
-      "id": 6
-    },
-    {
-      "title": "asdf",
-      "body": "asdf",
-      "publish": true,
-      "createdAt": 1680419355137,
-      "id": 7
-    },
-    {
-      "title": "asdf",
-      "body": "asdf",
-      "publish": true,
-      "createdAt": 1680419355276,
-      "id": 8
     }
   ]
 }

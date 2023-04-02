@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import porpTypes from 'prop-types';
 import useToast from "../hooks/toast";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BlogForm = ({editing}) => {
   const history = useHistory();
@@ -16,7 +17,10 @@ const BlogForm = ({editing}) => {
   const [originalpublish , setOriginalPublish] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
+  const [loading , setLoading] = useState(true);
+  const [error , setError] = useState('');
   const {addToast} = useToast();
+
 
 
 
@@ -29,7 +33,17 @@ const BlogForm = ({editing}) => {
         setOrignalBody(res.data.body);
         setPublish(res.data.publish);
         setOriginalPublish(res.data.publish);
+        setLoading(false);
+        }).catch(e => {
+          setError('Something went Wrong in database');
+          addToast({
+            type: 'danger',
+            text: 'Something went Wrong in database'
+          })
+          setLoading(false);
         })
+      } else {
+        setLoading(false);
       }
     },[id , editing]);
 
@@ -73,6 +87,11 @@ const BlogForm = ({editing}) => {
         publish
       }).then(res => {
         history.push(`/blogs/${id}`);
+      }).catch(e => {
+        addToast({
+          type: 'danger',
+          text: 'We could Not Update blog'
+        })
       })
     } else {
         axios.post('http://localhost:3001/posts', {
@@ -86,7 +105,12 @@ const BlogForm = ({editing}) => {
             text: 'Successfully created!'
           });
           history.push('/admin');
+        }).catch(e => {
+          addToast({
+            type: 'danger',
+            text: 'We could Not Create blog'
         })
+      })
       }
     }
   };
@@ -94,6 +118,14 @@ const BlogForm = ({editing}) => {
   const onChangePublish = (e) => {
     setPublish(e.target.checked);
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <div>{error}</div>
+  }
 
   return (
       <div>
