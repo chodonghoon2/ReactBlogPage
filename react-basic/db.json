@@ -13,13 +13,6 @@
       "publish": true,
       "createdAt": 1680424877493,
       "id": 2
-    },
-    {
-      "title": "React를 활용하여 블로그 만들기",
-      "body": "React를 활용하여 블로그 만들기",
-      "publish": true,
-      "createdAt": 1680424888697,
-      "id": 3
     }
   ]
 }
